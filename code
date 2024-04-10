@@ -1,0 +1,58 @@
+import RPi.GPIO as GPIO
+GPIO.setmode(GPIO.BOARD)
+GPIO.setwarnings(False)
+GPIO.setup(8,GPIO.OUT)
+GPIO.setup(10,GPIO.OUT) 
+GPIO.setup(12,GPIO.OUT)
+
+from PyQt5 import QtWidgets 
+from PyQt5.QtWidgets import QApplication, QMainWindow 
+import sys
+
+class MyWindow(QMainWindow):
+  def __init__ (self):
+    super(MyWindow,self).__init__()
+    self.setGeometry(500, 500, 500, 500) 
+    self.setWindowTitle("GUI Task") 
+    self.initUI()
+  def initUI(self):
+    self.b1 = QtWidgets.QPushButton(self)
+    self.b1.setText("Red")
+    self.b1.clicked.connect(self.red)
+    
+    self.b2 = QtWidgets.QPushButton(self)
+    self.b2.setText("Blue")
+    self.b2.move(90,0)
+    self.b2.clicked.connect(self.blue)
+
+    self.b3 = QtWidgets.QPushButton(self)
+    self.b3 = setText ("Green") 
+    self.b3.move(180,0)
+    self.b3.clicked.connect(self.green)
+
+    self.b4 = QtWidgets.QPushButton(self)
+    self.b4 = setText("Quit") 
+    self.b4.move(50, 50)
+    self.b4.clicked.connect(self.close)
+
+  def red(self):
+    GPIO.output(8, GPIO.HIGH)
+    GPIO.output(10, GPIO.LOW)
+    GPIO.output(12, GPIO.LOW)
+
+  def blue(self):
+    GPIO.output(10, GPIO.HIGH)
+    GPIO.output(8, GPIO.LOW)
+    GPIO.output(12, GPIO.LOW)
+
+  def green(self):
+    GPIO. output(12, GPIO.HIGH) 
+    GPIO. output(8, GPIO.LOW)
+    GPIO.output(10, GPIO.LOW)
+
+def window():
+  app = QApplication(sys.argv)
+  win = MyWindow()
+  win. show() 
+  sys.exit(app.exec_())
+window()
